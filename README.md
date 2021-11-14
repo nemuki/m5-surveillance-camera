@@ -20,7 +20,7 @@ code .
 - `src/Wi-Fi.cpp` に以下を追加する
 
 ```cpp
-#include "WiFi.h"
+#include "Wi-Fi.h"
 
 char *wifi_ssid = "";
 char *wifi_password = "";
