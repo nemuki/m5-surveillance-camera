@@ -1,6 +1,6 @@
 # M5 Surveillance Camera
 
-> M5 Cameraと人感センサーで作る監視カメラ
+> M5 Camera と人感センサーで作る監視カメラ
 
 ## 必要な物
 
@@ -9,7 +9,7 @@
 
 ## セットアップ
 
-- リポジトリをクローンし，Visual Studio Codeで開く
+- リポジトリをクローンし，Visual Studio Code で開く
 
 ```sh
 git clone https://github.com/nemuki/m5-surveillance-camera.git
@@ -27,4 +27,4 @@ char *wifi_password = "";
 String myScript = "";
 ```
 
-- Platform IOでビルドする．
+- Platform IO でビルドする．
