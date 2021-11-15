@@ -97,17 +97,19 @@ void setup()
     delay(1000);
     ESP.restart();
   }
-}
 
-boolean enviar = true;
+  // 人感センサーと接続
+  pinMode(32, INPUT);
+}
 
 void loop()
 {
-  //if(enviar) {
-  saveCapturedImage();
-  enviar = false;
-  delay(60000);
-  //}
+  if (digitalRead(32) == 1)
+  {
+    saveCapturedImage();
+    delay(60000);
+  }
+  delay(100);
 }
 
 //https://github.com/zenmanenergy/ESP8266-Arduino-Examples/
