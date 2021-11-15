@@ -6,7 +6,7 @@
 #include "esp_camera.h"
 #include "Wi-Fi.h"
 
-const char *ssid = wifi_ssid;  // Your network SSID
+const char *ssid = wifi_ssid;         // Your network SSID
 const char *password = wifi_password; // Your network password
 const char *myDomain = "script.google.com";
 String myFilename = "filename=ESP32-CAM.jpg";
@@ -14,7 +14,7 @@ String mimeType = "&mimetype=image/jpeg";
 String myImage = "&data=";
 
 // Wait 30 seconds to google response.
-int waitingTime = 30000; 
+int waitingTime = 30000;
 
 // defined(M5CAM_MODEL_B)
 #define PWDN_GPIO_NUM -1
