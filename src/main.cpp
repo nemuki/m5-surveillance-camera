@@ -107,7 +107,6 @@ void loop()
   if (digitalRead(32) == 1)
   {
     saveCapturedImage();
-    delay(60000);
   }
   delay(100);
 }
