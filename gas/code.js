@@ -1,5 +1,7 @@
 function myFunction() {
-
+  const folders = DriveApp.getFolderById(env())
+  
+  folders.createFolder("images")
 }
 
 function doPost(e) {
@@ -8,7 +10,7 @@ function doPost(e) {
   const blob = Utilities.newBlob(data, e.parameters.mimetype, nombreArchivo);
 
   // Save the photo to Google Drive
-  const folders = DriveApp.getFoldersByName("ESP32");
+  const folders = DriveApp.getFoldersById(env())
   let folder
   if (folders.hasNext()) {
     folder = folders.next();

@@ -11,3 +11,4 @@ src/Wi-Fi.cpp
 # clasp
 .clasp.json
 gas/appsscript.json
+gas/env.js
