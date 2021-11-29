@@ -9,6 +9,7 @@
 const char *ssid = wifi_ssid;         // Your network SSID
 const char *password = wifi_password; // Your network password
 const char *myDomain = "script.google.com";
+const int camIntval = 10000; //camera interval
 String myFilename = "filename=ESP32-CAM.jpg";
 String mimeType = "&mimetype=image/jpeg";
 String myImage = "&data=";
@@ -104,9 +105,14 @@ void setup()
 
 void loop()
 {
+  bool stopFlg = false;
+  unsigned long startTime ;
   if (digitalRead(32) == 1)
   {
+    startTime = millis();
     saveCapturedImage();
+    while(startTime +camIntval < millis() && digitalRead(32) ==1){
+    }
   }
   delay(100);
 }
