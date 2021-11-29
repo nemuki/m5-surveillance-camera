@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: Surveillance Info
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /log:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  images:
+                    type: object
+                    properties:
+                      YYYY-MM-DD:
+                        type: object
+                        properties:
+                          time:
+                            type: string
+                            minLength: 1
+                          imageUrl:
+                            type: string
+                            minLength: 1
+                        required:
+                          - time
+                          - imageUrl
+                    required:
+                      - YYYY-MM-DD
+                required:
+                  - images
+                x-examples:
+                  example-1:
+                    images:
+                      YYYY-MM-DD:
+                        time: 'hh:mm:ss'
+                        imageUrl: string
+              examples:
+                example:
+                  value:
+                    images:
+                      YYYY-MM-DD:
+                        time: 'hh:mm:ss'
+                        imageUrl: string
+      operationId: get-log
+      description: すべての画像を返却する
+  /logs:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    YYYY-MM-DD:
+                      images:
+                        time: string
+                        imageUrl: string
+                properties:
+                  YYYY-MM-DD:
+                    type: object
+                    required:
+                      - image
+                    properties:
+                      image:
+                        type: object
+                        required:
+                          - time
+                          - imageUrl
+                        properties:
+                          time:
+                            type: string
+                            minLength: 1
+                          imageUrl:
+                            type: string
+                            minLength: 1
+                required:
+                  - YYYY-MM-DD
+              examples:
+                example:
+                  value:
+                    YYYY-MM-DD:
+                      image:
+                        time: 'hh:mm:ss'
+                        imageUrl: string
+      operationId: get-logs
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: date
+      description: dateパラペーターの日付の写真を返却する
+    parameters: []
+components:
+  schemas: {}
