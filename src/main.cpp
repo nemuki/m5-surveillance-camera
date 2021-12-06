@@ -15,6 +15,7 @@ String myImage = "&data=";
 
 // Wait 30 seconds to google response.
 int waitingTime = 30000;
+int NFCount = 0;                        //Terget Not Found Count
 
 // defined(M5CAM_MODEL_B)
 #define PWDN_GPIO_NUM -1
@@ -86,7 +87,7 @@ void setup()
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
-  config.frame_size = FRAMESIZE_VGA; // UXGA|SXGA|XGA|SVGA|VGA|CIF|QVGA|HQVGA|QQVGA
+  config.frame_size = FRAMESIZE_UXGA; // UXGA|SXGA|XGA|SVGA|VGA|CIF|QVGA|HQVGA|QQVGA
   config.jpeg_quality = 10;
   config.fb_count = 1;
 
@@ -104,10 +105,17 @@ void setup()
 
 void loop()
 {
+
   if (digitalRead(32) == 1)
   {
+    Serial.println("Taking a picture...");
     saveCapturedImage();
-    delay(60000);
+  }else{
+      NFCount++;
+      if(NFCount >=10){
+          Serial.println("Not Found Terget");
+          NFCount =0;
+      }
   }
   delay(100);
 }
