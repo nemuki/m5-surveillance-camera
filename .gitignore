@@ -3,6 +3,7 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
-src/Wi-Fi.cpp
+src/env.cpp
 gas/.clasp.json
 gas/appsscript.json
+gas/env.js
