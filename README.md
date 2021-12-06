@@ -17,10 +17,10 @@ cd m5-surveillance-camera
 code .
 ```
 
-- `src/Wi-Fi.cpp` に以下を追加する
+- `src/env.cpp` に以下を追加する
 
 ```cpp
-#include "Wi-Fi.h"
+#include "env.h"
 
 char *wifi_ssid = "";
 char *wifi_password = "";
