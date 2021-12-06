@@ -187,7 +187,7 @@ void saveCapturedImage()
 
     Serial.println("Send a captured image to Google Drive.");
 
-    client.println("POST " + myScript + " HTTP/1.1");
+    client.println("POST " + script_url + " HTTP/1.1");
     client.println("Host: " + String(myDomain));
     client.println("Content-Length: " + String(Data.length() + imageFile.length()));
     client.println("Content-Type: application/x-www-form-urlencoded");
