@@ -4,7 +4,7 @@
 #include "soc/rtc_cntl_reg.h"
 #include "Base64.h"
 #include "esp_camera.h"
-#include "Wi-Fi.h"
+#include "env.h"
 
 const char *ssid = wifi_ssid;         // Your network SSID
 const char *password = wifi_password; // Your network password
