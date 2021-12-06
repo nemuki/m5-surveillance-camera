@@ -20,7 +20,7 @@ code .
 - `src/env.cpp` に以下を追加する
 
 ```cpp
-#include "env.h"
+#include "WString.h"
 
 char *wifi_ssid = "";
 char *wifi_password = "";
