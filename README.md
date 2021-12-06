@@ -24,7 +24,7 @@ code .
 
 char *wifi_ssid = "";
 char *wifi_password = "";
-String script_url = "/macros/s/.../exec";
+String script_path = "/macros/s/.../exec";
 ```
 
 - Platform IO でビルドする．
