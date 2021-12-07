@@ -22,8 +22,8 @@ code .
 ```cpp
 #include "WString.h"
 
-char *wifi_ssid = "";
-char *wifi_password = "";
+const char *wifi_ssid = "";
+const char *wifi_password = "";
 String script_path = "/macros/s/.../exec";
 ```
 
