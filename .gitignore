@@ -6,7 +6,7 @@
 .vscode/ipch
 
 # Wi-Fi
-src/Wi-Fi.cpp
+src/env.cpp
 
 # clasp
 .clasp.json
