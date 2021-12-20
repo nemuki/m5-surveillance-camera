@@ -7,3 +7,4 @@ src/env.cpp
 gas/.clasp.json
 gas/appsscript.json
 gas/env.js
+.clasp.json
