@@ -5,9 +5,9 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /log:
+  '':
     get:
-      summary: Your GET endpoint
+      summary: GET image url from Google Drive
       tags: []
       responses:
         '200':
@@ -15,95 +15,69 @@ paths:
           content:
             application/json:
               schema:
+                type: array
                 description: ''
-                type: object
-                properties:
-                  images:
-                    type: object
-                    properties:
-                      YYYY-MM-DD:
-                        type: object
-                        properties:
-                          time:
-                            type: string
-                            minLength: 1
-                          imageUrl:
-                            type: string
-                            minLength: 1
-                        required:
-                          - time
-                          - imageUrl
-                    required:
-                      - YYYY-MM-DD
-                required:
-                  - images
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - created_at
+                    - drive_folder_id
+                    - image_url
+                  properties:
+                    created_at:
+                      type: string
+                      minLength: 1
+                    drive_folder_id:
+                      type: string
+                      minLength: 1
+                    image_url:
+                      type: string
+                      minLength: 1
                 x-examples:
                   example-1:
-                    images:
-                      YYYY-MM-DD:
-                        time: 'hh:mm:ss'
-                        imageUrl: string
+                    - created_at: '2021-12-13T02:23:05.000Z'
+                      drive_folder_id: 1_5x9Cz-3VmX_r3igi0KMbl7TtQwBCDsf
+                      image_url: a
+                    - created_at: '2021-12-13T02:23:42.643Z'
+                      drive_folder_id: 1_5x9Cz-3VmX_r3igi0KMbl7TtQwBCDsf
+                      image_url: a
+                    - created_at: '2021-12-13T02:26:39.111Z'
+                      drive_folder_id: 1_5x9Cz-3VmX_r3igi0KMbl7TtQwBCDsf
+                      image_url: a
               examples:
                 example:
                   value:
-                    images:
-                      YYYY-MM-DD:
-                        time: 'hh:mm:ss'
-                        imageUrl: string
-      operationId: get-log
-      description: すべての画像を返却する
-  /logs:
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    YYYY-MM-DD:
-                      images:
-                        time: string
-                        imageUrl: string
-                properties:
-                  YYYY-MM-DD:
-                    type: object
-                    required:
-                      - image
-                    properties:
-                      image:
-                        type: object
-                        required:
-                          - time
-                          - imageUrl
-                        properties:
-                          time:
-                            type: string
-                            minLength: 1
-                          imageUrl:
-                            type: string
-                            minLength: 1
-                required:
-                  - YYYY-MM-DD
-              examples:
-                example:
-                  value:
-                    YYYY-MM-DD:
-                      image:
-                        time: 'hh:mm:ss'
-                        imageUrl: string
-      operationId: get-logs
+                    - created_at: string
+                      drive_folder_id: string
+                      image_url: string
+                    - created_at: string
+                      drive_folder_id: string
+                      image_url: string
+                    - created_at: string
+                      drive_folder_id: string
+                      image_url: string
+      operationId: get-image-url
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: api
+    parameters: []
+    post:
+      summary: Add image to Google Drive
+      operationId: post-image-to-gas
       parameters:
         - schema:
             type: string
           in: query
-          name: date
-      description: dateパラペーターの日付の写真を返却する
-    parameters: []
+          name: data
+          description: base64 image data
+          required: true
+      responses:
+        '200':
+          description: OK
+      description: base64にエンコードされたデータをPOSTするとGoogle Driveに保存される
 components:
   schemas: {}
