@@ -1,16 +1,20 @@
 function myFunction() {
   const today = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'YYYY-MM-dd')
 
-  // Save the photo to Google Drive
-  let rootFolder = DriveApp.getFolderById(env())
-  let targetFolder = rootFolder.getFoldersByName(today)
+  const ss = SpreadsheetApp.getActiveSpreadsheet()
+  const sheet = ss.getActiveSheet()
 
-  while (targetFolder.hasNext()) {
-    let file = targetFolder.next();
-    
-    let fileName = file.getName();
-    console.log(fileName);
+  // Save the photo to Google Drive
+  let saveFolder, rootFolder = DriveApp.getFolderById(env())
+  let folders = rootFolder.getFolders();
+  for (key in folders) {
+    Logger.log()
   }
+  if (rootFolder.getFoldersByName(today).hasNext())
+    saveFolder = rootFolder.getFoldersByName(today).next()
+  else
+    saveFolder = rootFolder.createFolder(today)
+  sheet.appendRow([new Date(), saveFolder.getId()])
 }
 
 function doPost(e) {
@@ -18,15 +22,20 @@ function doPost(e) {
   const imageData = Utilities.base64Decode(e.parameters.data);
   const imageName = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'YYYY/MM/dd hh-mm-ss') + ".jpg";
   const blob = Utilities.newBlob(imageData, e.parameters.mimetype, imageName);
-  const today = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'YYYY/MM/dd')
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet()
+  const sheet = ss.getActiveSheet()
 
   // Save the photo to Google Drive
+  const today = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'YYYY/MM/dd')
   let saveFolder, rootFolder = DriveApp.getFolderById(env())
   if (rootFolder.getFoldersByName(today).hasNext())
     saveFolder = rootFolder.getFoldersByName(today).next()
   else
     saveFolder = rootFolder.createFolder(today)
-  saveFolder.createFile(blob)
+  let saveFile = saveFolder.createFile(blob)
+
+  sheet.appendRow([new Date(), saveFolder.getId(), saveFile.getUrl()])
 
   return ContentService.createTextOutput('Complete')
 }
