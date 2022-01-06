@@ -10,6 +10,7 @@ const char *ssid = wifi_ssid;         // Your network SSID
 const char *password = wifi_password; // Your network password
 const char *myDomain = "script.google.com";
 const int camIntval = 15000; // camera interval
+const int deepSleep = 30;
 String myFilename = "filename=ESP32-CAM.jpg";
 String mimeType = "&mimetype=image/jpeg";
 String myImage = "&data=";
@@ -66,7 +67,19 @@ void setup()
     Serial.println(WiFi.localIP());
 
     Serial.println("");
-
+    Serial.println("Start Sync Time");
+    struct tm localTime;
+    configTzTime("JST-9", "ntp.nict.jp", "10.40.44.2", "ntp.jst.mfeed.ad.jp");
+    Serial.print("[NTP Svr] Connecting.");
+    while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET)
+    {
+        Serial.print(".");
+        delay(1000); // １秒毎にリトライ
+    }
+    getLocalTime(&localTime);
+    Serial.println("\n[NTP Svr] Connected!");
+    Serial.print("[System] Local time: ");
+    Serial.println(&localTime, "%Y/%m/%d(%a) %H:%M:%S");
     camera_config_t config;
     config.ledc_channel = LEDC_CHANNEL_0;
     config.ledc_timer = LEDC_TIMER_0;
@@ -127,7 +140,12 @@ void loop()
             NFCount = 0;
         }
     }
-    delay(100);
+    // 1000000us = 1sのタイマー設定
+    esp_sleep_enable_timer_wakeup(1000000 * deepSleep);
+    // ディープスリープ
+    Serial.println("Sleep Start");
+    esp_deep_sleep_start();
+    Serial.println("Sleep End");
 }
 
 // https://github.com/zenmanenergy/ESP8266-Arduino-Examples/
